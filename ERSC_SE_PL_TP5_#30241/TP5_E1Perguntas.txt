@@ -1,0 +1,56 @@
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// Ficha Prática 5 - PWM (LED RGB)
+//
+// A - Protótipos das funções Arduino C a utilizar para efectuar Digital I/O:
+//   void pinMode(int pin_ID, bool INPUT/OUTPUT) - define a direcção do fluxo INPUT/OUTPUT
+//   void digitalWrite(int pin_ID, bool LOW/HIGH)- escreve na porta digital pin_ID o valor LOW/HIGH
+//   int digitalRead(int pin_ID) - lê o valor lógico (LOW/HIGH) da porta digital pin_ID
+//   int digitalWrite(int pin_ID, unsigned char dc) - gera um pulso PWM com dutyCycle dc no pino pin_ID
+//
+// B - Datasheet do ATMEGA328
+//  http://ww1.microchip.com/downloads/en/devicedoc/atmel-42735-8-bit-avr-microcontroller-atmega328-328p_datasheet.pdf
+//
+//////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////
+// Ficha Prática 5: Parte1 1. PWM -1. PWM - Introdução
+//////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////
+// Eduardo Miguel Moreira Junqueira nº30241 ERSC 
+/////////////////////////////////////////////////
+
+
+1. PWM Pulse Width Modulation - Introdução
+Perg1:
+	Abra o datasheet que
+se encontra no moodle e identifique os pinos do MCU que podem ser usados para
+gerar sinais PWM:
+
+	R:	Os pinos do ATmega328P que são usados para gerar sinais PWM são:
+	•OC0A (PD6) - Pino digital 6 
+	•OC0B (PD5) - Pino digital 5
+	•OC1A (PB1) - Pino digital 9 
+	•OC1B (PB2) - Pino digital 10 
+	•OC2A (PB3) - Pino digital 11 
+	•OC2B (PD3) - Pino digital 3
+	Esses pinos estão ligados aos temporizadores internos do ATmega328P (Timer/Counter0, Timer/Counter1 e Timer/Counter2) e permitem geração de PWM via hardware.
+
+Perg2:
+	Aceda à documentação da função e identifique a frequência do PWM gerado através da função analogWrite() no arduino UNO:
+
+	R: a frequência do PWM gerado através da função analogWrite() que escreve um valor analógico no arduino são:
+	-490 Hz para os pinos: 3 •OC2B (PD3) - Pino digital 3, 5 •OC0B (PD5) - Pino digital 5, 6•OC0A (PD6) - Pino digital 6 , 11 •OC2A (PB3) - Pino digital 11 .
+	-980 Hz para os pinos: 9,•OC1A (PB1) - Pino digital 9  e 10,•OC1B (PB2) - Pino digital 10.
+
+Perg3:
+	Consulte
+	a página Basics of PWM  para saber como identificar os
+	pinos do arduino que permitem gerar saidas PWM:
+
+	R:	Os pinos do ATmega328P que são usados para gerar saídas de PWM são:3, 5, 6, 9, 10 e 11, ou seja, são os mesmo que são usados para gerar sinais PWM.
+		
+		
+		

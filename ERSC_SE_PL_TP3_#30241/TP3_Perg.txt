@@ -1,0 +1,63 @@
+
+/////////////////////////////////////////////////
+// Ficha Prática 3 I/O Ports - Exercícios:
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// Eduardo Miguel Moreira Junqueira nº30241 ERSC 
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// 1-Exercícios-Ex1: perguntas 1. Timers - Introdução:
+/////////////////////////////////////////////////
+
+
+Perg1-Consulte a lista de Features do MCU que se encontra na primeira página do datasheet. Quantos Timers estão disponíveis? 
+
+Resposta:3 Timers (Timer0, Timer1, e Timer2)
+
+Perg2 -O modo de operação do Timer 1 encontra-se descrito na secção 16 (16-bit Timer/Counter1 with PWM), consulte as seguintes secções:
+– 16.2 - Overview
+– 16.4 - Timer/Counter Clock Sources. O pino clkI/O do Arduino usado nas
+aulas encontra-se ligado a um oscilador de 16MHz.
+
+
+– 16.5 - Counter Unit. Qual o registo que pode ser usado para gerar uma
+interrupção com origem no Timer 1?
+
+Resposta:O registo TIMSK1 é usado para gerar a interrupção do Timer 1.
+
+Perg3 – 16.9.1 - Normal Mode. Em que situação é que o TOV1 é ativo? – 17 - Timer/Counter0 and Timer/Counter1 Prescalers. O que é o Prescaler e
+e para que serve?
+
+Resposta:No modo Normal, o TOV1 é ativo no overflow do Timer 1.
+
+
+
+Perg4- Consulte a documentação dos registos usados para configuração do Timer 1 e
+determine o valor a configurar em cada um deles para que o Timer 1 funcione com um período de overflow de 1 segundo.
+– TCCR1A (ver sec. 16.11.1)
+– TCCR1B (ver sec. 16.11.2 - Bit 2:0 – CS12:0: Clock Select ) – TCNT1 (ver sec. 16.11.4)
+– TIMSK1 (ver sec. 16.11.8 - Bit 0 – TOIE1: Timer/Counter1, Overflow Interrupt Enable)
+– TIFR1 (ver sec. 16.11.8 - Bit 0 – TOV1: Timer/Counter1, Overflow Flag)
+
+Resposta:
+Configuração dos registos para um overflow de 1 segundo:
+
+Para configurar o Timer 1 com um overflow de 1 segundo, usando um oscilador de 16 MHz, devemos configurar os registos:
+
+TCCR1A: Este registo controla o modo do Timer. No modo Normal, todos os bits devem ser 0.
+Valor para TCCR1A: 0x00
+TCCR1B: Define a fonte de clock. Para um overflow de 1 segundo, utilizando um prescaler de 256.
+Valor para TCCR1B: 0x04 (definindo o prescaler de 256)
+TCNT1: Este registo inicializa o contador. Para 1 segundo de overflow, o valor inicial deve ser zero.
+Valor para TCNT1: 0x0000
+TIMSK1: Para habilitar a interrupção de overflow, o bit TOIE1 precisa estar ativado.
+Valor para TIMSK1: 0x01 (ativa o bit TOIE1)
+TIFR1: Este registo contém o flag de overflow TOV1, que é definido automaticamente quando ocorre o overflow. Para verificar o status de overflow, pode-se monitorar este registo, mas não precisa de um valor inicial específico.
+Resposta Final:
+
+TCCR1A: 0x00
+TCCR1B: 0x04
+TCNT1: 0x0000
+TIMSK1: 0x01
+TIFR1: não precisa de valor inicial.
+

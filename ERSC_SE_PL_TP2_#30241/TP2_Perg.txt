@@ -1,0 +1,51 @@
+
+/////////////////////////////////////////////////
+// Ficha Prática 2 I/O Ports - Exercícios:
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// Eduardo Miguel Moreira Junqueira nº30241 ERSC 
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// Perguntas
+/////////////////////////////////////////////////
+
+Pergunta1:	
+A secção 13 (External Interrupts) descreve as interrupções externas no Atmega328p. Quantas linhas de interrupções externas estão disponíveis no MCU ?
+
+Resposta:
+2 linhas de interrupções externas estão presentes: INT0 e INT1 estas linhas são usadas para monitorizar eventos de interrupção externa.;
+
+Pergunta2:	
+Consule a secção 14.3 (Alternate Port Functions) e identifique os pinos do MCU que podem ser usados para despoletar uma interrupção externa no MCU. 
+
+Resposta:
+Os pinos PB0 a PB7 (Port B) não estão diretamente relacionados às interrupções externas do Atmega328p.PB7;PB6;PB5;PB4;PB3;PB2;PB1;PB0;
+Neste caso os pinos do MCU que podem ser usados para despoletar uma interrupção externa no MCU são os respetidos do INT0 e INT1 dos quais:
+PD2(External Interrupt 0 Input)  e PD3INT1 (External Interrupt 1 Input).
+
+Pergunta3:	
+Consulte o documento com o mapeamento dos pinos do Arduino disponível no Moodle e identifique os pinos do Arduino que permitem utilizar as interrupções externas do MCU.
+
+Resposta:
+Pino digital 2 INT0 (PD2 no MCU)
+Pino digital 3 INT1 (PD3 no MCU)
+
+Pergunta4:
+Consulte a secção 13.2 (Register Description) e determine quais os valores a configurar nos registos infra de forma a despoletar uma interrupção sempre que exista uma transição de ’0’ para ’1’ no pino 2 do Arduino.
+– EICRA – External Interrupt Control Register A 
+– EIMSK – External Interrupt Mask Register 
+– EIFR – External Interrupt Flag Register
+
+Resposta:	
+
+ // Configurar EICRA para ativar a interrupção na borda de subida (INT0)
+  EICRA |= (1 << ISC01) | (1 << ISC00);  // Configura para borda de subida
+
+  // Habilitar a interrupção INT0
+  EIMSK |= (1 << INT0);
+
+  // Limpar o flag de interrupção de INT0
+  EIFR |= (1 << INTF0);
+
+  // Ativar interrupções globais
+  sei();  // Habilita interrupções globalmente

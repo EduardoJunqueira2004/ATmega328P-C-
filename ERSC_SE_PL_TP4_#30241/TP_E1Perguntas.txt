@@ -1,0 +1,11 @@
+	1.	Modelo de Moore:
+	As saídas dependem apenas do estado atual. Assim, cada estado tem suas saídas associadas a ele diretamente, independentemente das entradas ou das condições de transição.
+	2.	Modelo de Mealy:
+	As saídas dependem das transições e das entradas. Neste caso, as saídas podem mudar dependendo das condições de entrada enquanto ocorre uma transição entre os estados.
+	
+	Pergunta 1.2:
+		Figura 4: Modelo de Moore depende apenas do estado atual.-->Neste caso, como os estados OFF, ON e WARN têm valores de LedG e LedR atribuídos diretamente, isso confirma que este diagrama segue o modelo de Moore.
+		Figura 5: Modelo de Meadley depende do estado e das entradas.-->porque as saídas (LedG, LedR) são determinadas pelas condições das transições (como ButtonPressed e timeExpired), em vez de serem unicamente determinadas pelo estado atual.
+		
+		
+		

@@ -1,0 +1,60 @@
+//////////////////////////////////////////////////////////////////////////////
+// 
+// Ficha Prática 6 - ADC e PWM (LED RGB)
+// SIL - Novembro de 2018
+//
+// A - Protótipos das funções Arduino C a utilizar para efectuar Digital I/O:
+//   void pinMode(int pin_ID, bool INPUT/OUTPUT) - define a direcção do fluxo INPUT/OUTPUT
+//   void digitalWrite(int pin_ID, bool LOW/HIGH)- escreve na porta digital pin_ID o valor LOW/HIGH
+//   int digitalRead(int pin_ID) - lê o valor lógico (LOW/HIGH) da porta digital pin_ID
+//   int digitalWrite(int pin_ID, unsigned char dc) - gera um pulso PWM com dutyCycle dc no pino pin_ID
+//
+// B - Datasheet do ATMEGA328
+//  http://ww1.microchip.com/downloads/en/devicedoc/atmel-42735-8-bit-avr-microcontroller-atmega328-328p_datasheet.pdf
+//
+//////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////
+// Ficha Prática 6: ADCs - Analogue-to-Digital Converters (Conversão analógico-digital). 
+// Parte1 1. 1. ADCs - Introdução
+//////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////
+// Eduardo Miguel Moreira Junqueira nº30241 ERSC 
+/////////////////////////////////////////////////
+
+Pergunta 1 Sobre o ATmega328P
+
+ 	Qual o tipo de ADC existente no MCU ?
+R:O ATmega328P possui um ADC (Analog-to-Digital Converter) de aproximação sucessiva (SAR - Successive Approximation Register ADC).
+
+	O resultado da conversão para digital é apresentado com quantos bits?
+R:O resultado da conversão é apresentado em 10 bits, ou seja, produz valores entre 0 e 1023((2^10)-1).
+
+	Qual a função do registo ADMUX ?
+R:O registo ADMUX (ADC Multiplexer Selection Register) é utilizado para:
+-Selecionar a fonte de tensão de referência (REFS1 e REFS0).
+-Escolher o canal analógico a ser convertido (MUX bits).
+-Configurar o ajuste à esquerda ou à direita do resultado do ADC (ADLAR).
+
+	Qual a função do registo ADCSRA ?
+R:O registo ADCSRA (ADC Control and Status Register A) é usado para:
+-Ativar ou desativar o ADC (bit ADEN).
+-Iniciar a conversão (bit ADSC).
+-Verificar se a conversão está concluída (bit ADIF).
+-Configurar o prescaler para definir a frequência de clock do ADC.
+
+	Qual a função dos registos ADCH/ADCL ? Porque são necessários 2 registos ?
+R:Os registos ADCH (ADC Data Register High) e ADCL (ADC Data Register Low) armazenam o resultado da conversão ADC em 10 bits.
+Como o ADC gera um valor de 10 bits e o registo interno é de 8 bits, o resultado é dividido entre dois registos: ADCL para os 8 bits menos significativos e ADCH para os 2 bits mais significativos.Essa divisão é necessária porque o MCU trabalha com registos de 8 bits.
+
+Pergunta2:
+De acordo com a formula apresentada anteriormente e com a secção 24.7 (ADC Conversion Result) do datasheet disponível no Moodle, considerando V ref = 5V :
+• V alorDigital = round((V in ÷ 5) × 1023)
+
+– se V in for igual a 0 V, o resultado da conversão será o código digital 0.
+– se V in for igual a 2.5 V o resultado da conversão será o código digital 512. – se V in for igual a 5 V, o resultado da conversão será o código digital 1023.
+
+Esta conversão de analógico para digital produz um erro conhecido como "erro de quantização". Quanto maior o número de bit da ADC menor será o "erro de quantização".
+
+R:O erro de quantização ocorre porque o ADC aproxima valores contínuos (analógicos) para níveis discretos (digitais).Quanto maior o número de bits da resolução ADC, menor será o "passo" entre os níveis discretos, resultando em uma representação mais precisa e menor erro de quantização.
