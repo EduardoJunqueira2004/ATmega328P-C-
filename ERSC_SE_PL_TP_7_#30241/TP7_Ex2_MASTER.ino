@@ -1,0 +1,82 @@
+//////////////////////////////////////////////////////////////////////////////
+// 
+// Ficha Prática 7 - Comunicação I2C (One Master-Multiple Slave)
+// 
+// MASTER
+//
+// Pinos I2C no Arduino Uno:
+//  - SDA: pino A4
+//	- SCL: pino A5
+//	- GND: Não esquecer de ligar o sinal de ground, entre os diversos dispositivos
+//////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////
+// Ficha Prática 7: Parte2 4.I2C (Inter-Integrated Circuit) - Exercícios
+//////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////
+// Eduardo Miguel Moreira Junqueira nº30241 ERSC 
+/////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Ficha Prática nº7 -Exercícios Link Trinkercad https://www.tinkercad.com/things/cUcGV0vEw8g-fp7ex2/editel?returnTo=https%3A%2F%2Fwww.tinkercad.com%2Fdashboard%2Fdesigns%2Fcircuits&sharecode=7YAWn6Q-oKON3vvgN62PjEWQfREBrJp5e1JobzOlq6o
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////
+//Exercício 2 tudo 
+//Exercício 2 Pretende-se implementar um sistema composto por um Master e dois
+//Slaves que permita a troca de mensagens utilizando o protocolo I2C.
+//////////////////////////////////////////////////////////////////////////////
+
+#include <Wire.h>
+
+#define SLAVE_A 0x03
+#define SLAVE_B 0x05
+
+void setup() {
+  Serial.begin(9600); // Inicializa o Serial
+  Serial.println("Master iniciado!"); // Mensagem de início
+  Wire.begin(); // Inicializa o barramento I2C como Master
+}
+
+void loop() {
+  //////////////////////////////  
+  // MASTER WRITES to SLAVE_A 
+  //////////////////////////////
+  Wire.beginTransmission(SLAVE_A); // Inicia transmissão para Slave A
+  Wire.write("MASTER > SLAVE_A\n"); // Envia uma string para Slave A
+  Wire.endTransmission(); // Finaliza transmissão
+  
+  delay(1000); // Aguarda 1 segundo
+
+  //////////////////////////////
+  // MASTER READS from SLAVE_A
+  //////////////////////////////
+  Wire.requestFrom(SLAVE_A, 17); // Solicita 17 bytes do Slave A
+  while (Wire.available()) { // Lê os dados enviados pelo Slave A
+    char c = Wire.read(); // Lê um byte como carácter
+    Serial.print(c); // Exibe o carácter no Serial
+  }
+  
+  delay(1000); // Aguarda 1 segundo
+
+  //////////////////////////////  
+  // MASTER WRITES to SLAVE_B 
+  //////////////////////////////
+  Wire.beginTransmission(SLAVE_B); // Inicia transmissão para Slave B
+  Wire.write("MASTER > SLAVE_B\n"); // Envia uma string para Slave B
+  Wire.endTransmission(); // Finaliza transmissão
+  
+  delay(1000); // Aguarda 1 segundo
+
+  //////////////////////////////
+  // MASTER READS from SLAVE_B
+  //////////////////////////////  
+  Wire.requestFrom(SLAVE_B, 17); // Solicita 17 bytes do Slave B
+  while (Wire.available()) { // Lê os dados enviados pelo Slave B
+    char c = Wire.read(); // Lê um byte como carácter
+    Serial.print(c); // Exibe o carácter no Serial
+  }
+  
+  delay(1000); // Aguarda 1 segundo
+}

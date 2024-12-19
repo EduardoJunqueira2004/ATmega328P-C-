@@ -1,0 +1,41 @@
+
+
+
+//////////////////////////////////////////////////////////
+// Ficha Prática 7: 1. USART (Universal Synchronous and Asynchronous serial Receiver and Transmitter )
+//////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////
+// Eduardo Miguel Moreira Junqueira nº30241 ERSC 
+/////////////////////////////////////////////////
+
+
+• O formato de trama usado pela USART. Quais os campos que a compõem?
+Resposta:
+O formato da trama usado pela USART (Universal Synchronous and Asynchronous Receiver Transmitter) no ATmega328P é configurável. A trama típica no modo assíncrono inclui os seguintes campos:
+
+-Bit de Start: Um único bit de início (sempre 0) que sinaliza o início da transmissão.
+-Bits de Dados: Entre 5 e 9 bits de dados (normalmente 8 bits por padrão).
+-Bit de Paridade (opcional): Um bit usado para verificar erros na transmissão.
+-Bits de Stop: Um ou dois bits que sinalizam o final da trama.
+
+Formato:[START] [DADOS] [PARIDADE OPCIONAL] [STOP]
+
+
+• Quais os registos usados para configurar o baudrate que é passado como entrada à função Serial.begin()?
+Resposta:
+O baudrate (velocidade de comunicação em bits por segundo) é configurado através dos seguintes registos:
+
+-UBRRH (USART Baud Rate Register High):Contém os bits mais significativos do valor do baudrate.
+-UBRRL (USART Baud Rate Register Low):Contém os bits menos significativos do valor do baudrate.
+
+• Qual o registo para ativar o receptor na USART?
+Resposta:
+O registo para ativar o receptor na USART é o UCSRnB (USART Control and Status Register B).
+Ex:UCSR0B |= (1 << RXEN0);
+
+
+• Qual o registo para ativar o transmissor na USART?
+Resposta:O registo para ativar o transmissor na USART também é o UCSRnB.
+Ex:UCSR0B |= (1 << TXEN0);
